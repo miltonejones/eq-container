@@ -3,10 +3,10 @@ import { Observable } from "rxjs";
 export function drawLineGraph(
   analyser: AnalyserNode,
   audio: HTMLAudioElement,
+  fillStyle = '#406172',
   width = 400,
   height = 40,
-  fftSize = 1024,
-  fillStyle = '#406172'
+  fftSize = 1024
 ): Observable<string> {
   const canvas = document.createElement("canvas") as HTMLCanvasElement;
   canvas.width = width;
@@ -14,7 +14,7 @@ export function drawLineGraph(
   const ctx = canvas.getContext("2d");
   const bufferLength = analyser.frequencyBinCount;
   const dataArray = new Uint8Array(bufferLength);
-
+  console.log('fillStyle = "%s"', fillStyle);
   return new Observable(observer => {
     const clear = () => {
       if (ctx) {

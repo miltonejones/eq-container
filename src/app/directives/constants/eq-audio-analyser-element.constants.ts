@@ -50,6 +50,5 @@ export const GRID_MASK_CSS = {
   left: '0px',
   width: '400px',
   height: '40px',
-  color: 'white',
   padding: '4px'
 };

@@ -41,6 +41,7 @@ export class EqAudioAnalyserElementDirective implements AfterViewChecked, OnInit
     setStyle(this.el, EQ_ELEMENT_CSS);
     const d = createElement('div', GRID_MASK_CSS);
     if (this.overlay) {
+      console.log('overlay = %s', this.color)
       d.style.backgroundImage = `url(${fullGrid(this.color)})`;
     }
     this.el.append(d);
@@ -65,7 +66,7 @@ export class EqAudioAnalyserElementDirective implements AfterViewChecked, OnInit
     const ob = this.analyst.observers[type];
     if (ob) {
       this.subscription = stopWatch(ob).subscribe(src => this.unpack(src));
-      console.log("subscribed");
+      console.log("subscribed", this.color);
       this.subscribed = true;
     }
   }

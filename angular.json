@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "eq-container"
+  "defaultProject": "eq-container",
+  "cli": {
+    "analytics": "b6080b0c-d871-4c7d-ba3d-749ecae95fa2"
+  }
 }

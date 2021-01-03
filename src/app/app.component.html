@@ -1,24 +1,56 @@
+<!-- toolbar -->
 <mat-toolbar color="primary" class="example-toolbar">
-	<button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button>
-	<h1 class="example-app-name">Nested Menus</h1>
+	<button mat-icon-button (click)="isExpanded = !isExpanded">
+		<mat-icon>menu</mat-icon>
+	</button>
+	<h1 class="example-app-name">{{title}}</h1>
 </mat-toolbar>
 
 <!-- sidebar -->
 <mat-sidenav-container class="example-container" autosize>
-	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
-      <app-song-nav [isExpanded]="isExpanded"></app-song-nav>
-    <mat-nav-list>
-</mat-nav-list>
+	<mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()"
+		(mouseleave)="mouseleave()">
+		<app-song-nav (select)="setSource($event)" [isExpanded]="isExpanded"></app-song-nav>
+		<mat-nav-list>
+		</mat-nav-list>
 	</mat-sidenav>
 
 	<div class="example-sidenav-content">
-		Main content that resizes properly {{isExpanded}}
+		<div class="playhead">
+			<div class="play-button">
+				<button mat-raised-button (click)="play()" *ngIf="paused" color="primary">Play</button>
+				<button mat-raised-button (click)="player$.pause()" *ngIf="!paused" color="warn">Stop</button>
+			</div>
+			<div class="play-controls">
+				
+				<mat-form-field class="full-width">
+					<mat-label>Choose song</mat-label>
+					<input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+					<mat-autocomplete 
+					(optionSelected)='setSource($event.option.value)'
+					#auto="matAutocomplete" [displayWith]="displayFn">
+					  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+						{{option}}
+					  </mat-option>
+					</mat-autocomplete>
+				  </mat-form-field>
+		
+			</div>
+		</div>
+
+		<app-audio-test-panel 
+		*ngFor="let config of configs"
+		[config]="config"></app-audio-test-panel>
+
 	</div>
 
 </mat-sidenav-container>
 
 
 
-<!-- Copyright 2017 Google Inc. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license -->
+<div>
+	<audio id="page-audio-player" autoplay="true" #stream>
+		<source type="audio/mpeg" />
+		Your browser does not support the audio element.
+	</audio>
+</div>

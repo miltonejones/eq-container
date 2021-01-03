@@ -1,0 +1,15 @@
+<div class="app-audio-test-panel">
+
+    <div class="eq-graph-label" [overlay]="config.overlay" [debug]="config.debug" [color]="config.color"
+        [eq-graph-label]="upper.value">
+    </div>
+
+    <mat-button-toggle-group [value]="config.type" name="fontStyle" aria-label="Eq Style" #upper="matButtonToggleGroup">
+        <mat-button-toggle value="bar">Bar</mat-button-toggle>
+        <mat-button-toggle value="line" color="warn">Line</mat-button-toggle>
+        <mat-button-toggle value="stats" color="warn">CSS</mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-slide-toggle class="slide-toggle" [(ngModel)]="config.debug">debug</mat-slide-toggle>
+    <mat-slide-toggle class="slide-toggle" [(ngModel)]="config.overlay">use grid</mat-slide-toggle>
+
+</div>

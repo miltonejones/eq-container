@@ -3,17 +3,17 @@ export const GLOBAL_BAR_FFT = 64;
 export function drawBarGraph(
   analyser: AnalyserNode,
   audio: HTMLAudioElement,
+  fillStyle = '#406172',
   width = 400,
   thisHeight = 40,
   fftSize = GLOBAL_BAR_FFT,
-  factor = 8,
-  fillStyle = '#406172'
+  factor = 8
 ): Observable<string> {
   const canvas = document.createElement("canvas") as HTMLCanvasElement;
   canvas.width = width;
   canvas.height = thisHeight;
   const ctx = canvas.getContext("2d");
-
+  console.log('fillStyle = "%s"', fillStyle);
   return new Observable(observer => {
     const run = () => {
       if (audio?.paused) {

@@ -31,3 +31,14 @@
     transform: scaleY(1);
   }
 }
+
+a {
+  &.a-mat-list-item {
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
+    white-space: nowrap;
+  }
+}

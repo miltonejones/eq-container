@@ -10,7 +10,7 @@ export class AudioAnalyserService {
   context = new AudioContext();
   observers: AudioAnalyserServiceObserverCollection = {};
   constructor() {}
-  attach(audio: HTMLAudioElement): void {
+  attach(audio: HTMLAudioElement, hue?: string): void {
     this.analyser = this.context.createAnalyser();
     const source = this.context.createMediaElementSource(audio);
     source.connect(this.analyser);
@@ -18,11 +18,11 @@ export class AudioAnalyserService {
     audio.crossOrigin = "anonymous";
     audio.addEventListener("error", () => alert("An error occured"));
     this.observers = {
-      [EqDisplayType.LINE]: drawLineGraph(this.analyser, audio),
-      [EqDisplayType.BAR]: drawBarGraph(this.analyser, audio),
+      [EqDisplayType.LINE]: drawLineGraph(this.analyser, audio, hue),
+      [EqDisplayType.BAR]: drawBarGraph(this.analyser, audio, hue),
       [EqDisplayType.CSS]: statsBarGraph(this.analyser, audio)
     };
-    console.log("attached!");
+    console.log("attached!", hue);
   }
 }
 export interface AudioAnalyserServiceObserverCollection {
